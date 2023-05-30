@@ -15,7 +15,7 @@ export class AppService {
         throw new HttpException('Repo not found', HttpStatus.BAD_REQUEST);
         
       const response = await this.api.axiosRef.post(
-        `${process.env.RM_API}/refact/all`,
+        `${process.env.REFACTORINGMINER_API}/refact/all`,
         { name: findRepo.repoName, url, branch: 'master' },
       );
 
@@ -25,7 +25,7 @@ export class AppService {
             `https://api.github.com/repos/${username}/${findRepo.repoName}/commits/${item.commitId}`,
             {
               headers: {
-                Authorization: `Bearer ${process.env.API_GITHUB_AUTH}`,
+                Authorization: `Bearer ${process.env.API_GITHUB_TOKEN}`,
               },
             },
           ),
