@@ -7,7 +7,7 @@ export class AppController {
 
   @Post('refact')
   extractRefacts(@Body() body): Promise<any> {
-    return this.appService.extractRefacts(body.username, body.url, body.branch);
+    return this.appService.extractRefacts(body.username, body.url);
   }
 
   @Post('payload')
