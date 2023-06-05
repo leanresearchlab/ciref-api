@@ -5,20 +5,18 @@ import { PrismaService } from './prisma/prisma.service';
 @Injectable()
 export class AppService {
   constructor(private api: HttpService, private prisma: PrismaService) {}
-  async extractRefacts(username: string, url: string, branch: string): Promise<any> {
+  async extractRefacts(username: string, url: string): Promise<any> {
     try {
       const findRepo = await this.prisma.repo.findFirst({
         where: { repoUrl: url },
       });
-
-      console.log(url, branch);
 
       if (!findRepo)
         throw new HttpException('Repo not found', HttpStatus.BAD_REQUEST);
         
       const response = await this.api.axiosRef.post(
         `${process.env.REFACTORINGMINER_API}/refact/all`,
-        { name: findRepo.repoName, url, branch },
+        { name: findRepo.repoName, url, branch: "master" },
       );
 
       const results = await Promise.all(
