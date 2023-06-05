@@ -11,6 +11,8 @@ export class AppService {
         where: { repoUrl: url },
       });
 
+      console.log(url, branch);
+
       if (!findRepo)
         throw new HttpException('Repo not found', HttpStatus.BAD_REQUEST);
         
